@@ -107,7 +107,7 @@ internal fun SignupScreen(
                 .padding(horizontal = 36.dp)
         ) {
             Text(
-                text = "Login",
+                text = "Register",
                 color = MainBlue,
                 fontFamily = InterFontFamily,
                 fontWeight = FontWeight.Bold,

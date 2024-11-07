@@ -7,3 +7,9 @@ plugins {
 android {
     namespace = "com.agvber.core.data"
 }
+
+dependencies {
+
+    implementation(project(":core:domain"))
+    implementation(project(":core:database"))
+}

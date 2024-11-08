@@ -11,7 +11,7 @@ internal class UserLocalDataSourceImpl @Inject constructor() : UserLocalDataSour
     private val users: MutableList<UserEntity> = mutableListOf()
 
     override suspend fun insertUser(userEntity: UserEntity) {
-        val generatorID = runCatching { users.lastIndex }.getOrNull() ?: 0
+        val generatorID = runCatching { users.lastIndex.also { require(it >= 0) } }.getOrNull() ?: 0
         users.add(userEntity.copy(id = generatorID.toLong()))
     }
 

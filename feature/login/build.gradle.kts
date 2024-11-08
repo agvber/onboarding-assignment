@@ -4,6 +4,7 @@ plugins {
     id("teampatch.android.library.test")
     id("teampatch.android.hilt")
     id("teampatch.android.feature")
+    id("kotlin-parcelize")
 }
 
 android {

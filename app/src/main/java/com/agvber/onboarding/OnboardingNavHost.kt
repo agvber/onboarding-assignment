@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.agvber.feature.home.HomeRoute
 import com.agvber.feature.login.LoginRoute
 import com.agvber.feature.signup.SignupRoute
+import com.agvber.feature.signup.addSignupScreen
 
 @Composable
 fun OnboardingNavHost(
@@ -15,13 +16,11 @@ fun OnboardingNavHost(
 ) {
     NavHost(navController, startDestination = SignupRoute) {
 
-        composable<SignupRoute> {
-            SignupRoute(
-                onBackRequest = navController::popBackStack,
-                onCompleteRequest = { navController.navigate(LoginRoute) },
-                loginPageRequest = { navController.navigate(LoginRoute) }
-            )
-        }
+        addSignupScreen(
+            onBackRequest = navController::popBackStack,
+            onCompleteRequest = { navController.navigate(LoginRoute) },
+            loginPageRequest = { navController.navigate(LoginRoute) }
+        )
 
         composable<LoginRoute> {
             LoginRoute(

@@ -11,10 +11,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
@@ -38,19 +39,15 @@ import com.agvber.core.designsystem.theme.MainBlue
 import com.agvber.core.designsystem.theme.OnboardingTheme
 import com.agvber.feature.signup.model.SignupSideEffect
 import com.agvber.feature.signup.model.SignupUiState
-import kotlinx.serialization.Serializable
-
-@Serializable
-data object SignupRoute
 
 @Composable
-fun SignupRoute(
+internal fun SignupRoute(
     onBackRequest: () -> Unit,
     onCompleteRequest: () -> Unit,
     loginPageRequest: () -> Unit,
+    viewModel: SignupViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val viewModel: SignupViewModel = hiltViewModel()
     val uiState = viewModel.uiState
 
     SignupScreen(
@@ -167,6 +164,7 @@ internal fun SignupScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .semantics { testTag = "email_text_field" }
             )
             DefaultTextField(
                 value = uiState.name,
@@ -188,7 +186,9 @@ internal fun SignupScreen(
                 placeholder = {
                     Text(text = "Ex: abc@example.com")
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics { testTag = "name_text_field" }
             )
             DefaultTextField(
                 value = uiState.password,
@@ -209,7 +209,9 @@ internal fun SignupScreen(
                 placeholder = {
                     Text(text = "Ex: abc@example.com")
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics { testTag = "password_text_field" }
             )
             DefaultButton(
                 onClick = onCompleteRequest,

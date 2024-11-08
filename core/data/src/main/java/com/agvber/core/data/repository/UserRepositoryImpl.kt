@@ -23,4 +23,8 @@ internal class UserRepositoryImpl @Inject constructor(
     override suspend fun getUserInformation(email: String, password: String): User {
         return userLocalDataSource.getUser(email, password).asExternalModel()
     }
+
+    override suspend fun getUserInformation(uid: String): User {
+        return userLocalDataSource.getUser(uid).asExternalModel()
+    }
 }

@@ -27,4 +27,6 @@ interface UserRepository {
         email: String,
         password: String
     ): User
+
+    suspend fun getUserInformation(uid: String): User
 }

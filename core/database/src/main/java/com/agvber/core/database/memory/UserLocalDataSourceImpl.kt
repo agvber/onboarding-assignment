@@ -18,4 +18,8 @@ internal class UserLocalDataSourceImpl @Inject constructor() : UserLocalDataSour
     override suspend fun getUser(email: String, password: String): UserEntity {
         return users.first { it.email == email && it.password == password }
     }
+
+    override suspend fun getUser(uid: String): UserEntity {
+        return users[uid.toInt()]
+    }
 }

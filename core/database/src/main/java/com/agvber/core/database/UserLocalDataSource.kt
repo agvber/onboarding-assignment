@@ -7,4 +7,6 @@ interface UserLocalDataSource {
     suspend fun insertUser(userEntity: UserEntity)
 
     suspend fun getUser(email: String, password: String): UserEntity
+
+    suspend fun getUser(uid: String): UserEntity
 }

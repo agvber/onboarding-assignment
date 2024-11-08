@@ -60,6 +60,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":feature:signup"))
     implementation(project(":feature:login"))
+    implementation(project(":feature:home"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

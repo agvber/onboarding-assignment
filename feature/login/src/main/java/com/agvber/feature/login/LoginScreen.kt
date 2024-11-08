@@ -42,10 +42,14 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object LoginRoute
 
+/**
+ * @param[onSuccessRequest] user id 값을 callback 합니다
+ */
+
 @Composable
 fun LoginRoute(
     onBackRequest: () -> Unit,
-    onSuccessRequest: () -> Unit,
+    onSuccessRequest: (String) -> Unit,
     registerPageRequest: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -63,11 +67,11 @@ fun LoginRoute(
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
-            when (it) {
+            when (val sideEffect = it) {
                 LoginSideEffect.LoginFail ->
                     Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
 
-                LoginSideEffect.LoginSuccess -> onSuccessRequest()
+                is LoginSideEffect.LoginSuccess -> onSuccessRequest(sideEffect.uid)
             }
         }
     }

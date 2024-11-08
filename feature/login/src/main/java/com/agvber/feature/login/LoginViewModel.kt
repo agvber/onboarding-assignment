@@ -41,8 +41,8 @@ internal class LoginViewModel @Inject constructor(
 
     fun login() = viewModelScope.launch {
         try {
-            loginAppUseCase(uiState.email, uiState.password)
-            _sideEffect.send(LoginSideEffect.LoginSuccess)
+            val user = loginAppUseCase(uiState.email, uiState.password)
+            _sideEffect.send(LoginSideEffect.LoginSuccess(user.uid))
         } catch (e: Exception) {
             _sideEffect.send(LoginSideEffect.LoginFail)
             e.printStackTrace()

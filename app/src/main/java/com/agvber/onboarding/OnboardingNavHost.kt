@@ -1,12 +1,11 @@
 package com.agvber.onboarding
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.agvber.feature.home.HomeRoute
 import com.agvber.feature.login.LoginRoute
 import com.agvber.feature.signup.SignupRoute
 
@@ -14,8 +13,6 @@ import com.agvber.feature.signup.SignupRoute
 fun OnboardingNavHost(
     navController: NavHostController = rememberNavController()
 ) {
-    val context = LocalContext.current
-
     NavHost(navController, startDestination = SignupRoute) {
 
         composable<SignupRoute> {
@@ -29,11 +26,13 @@ fun OnboardingNavHost(
         composable<LoginRoute> {
             LoginRoute(
                 onBackRequest = navController::popBackStack,
-                onSuccessRequest = {
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                },
+                onSuccessRequest = { navController.navigate(HomeRoute(it)) },
                 registerPageRequest = { navController.navigate(SignupRoute) }
             )
+        }
+
+        composable<HomeRoute> {
+            HomeRoute()
         }
     }
 }

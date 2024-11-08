@@ -14,4 +14,8 @@ internal class UserLocalDataSourceImpl @Inject constructor() : UserLocalDataSour
         val generatorID = runCatching { users.lastIndex }.getOrNull() ?: 0
         users.add(userEntity.copy(id = generatorID.toLong()))
     }
+
+    override suspend fun getUser(email: String, password: String): UserEntity {
+        return users.first { it.email == email && it.password == password }
+    }
 }

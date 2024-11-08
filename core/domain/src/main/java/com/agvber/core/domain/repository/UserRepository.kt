@@ -1,5 +1,7 @@
 package com.agvber.core.domain.repository
 
+import com.agvber.core.domain.model.User
+
 interface UserRepository {
 
     /**
@@ -16,4 +18,13 @@ interface UserRepository {
         name: String,
         password: String
     )
+
+    /**
+     *  유저 정보를 가져오는 함수
+     */
+
+    suspend fun getUserInformation(
+        email: String,
+        password: String
+    ): User
 }

@@ -19,4 +19,6 @@ tasks.withType<KotlinCompile>().configureEach {
 dependencies {
 
     implementation(libs.hilt.core)
+
+    testImplementation(libs.junit)
 }

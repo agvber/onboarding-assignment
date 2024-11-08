@@ -51,7 +51,7 @@ fun SignupRoute(
 ) {
     val context = LocalContext.current
     val viewModel: SignupViewModel = hiltViewModel()
-    val uiState by viewModel.uiState
+    val uiState = viewModel.uiState
 
     SignupScreen(
         onBackRequest = onBackRequest,

@@ -1,8 +1,11 @@
 package com.agvber.feature.signup
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
+import androidx.lifecycle.viewmodel.compose.saveable
 import com.agvber.core.domain.entity.SignupEntity
 import com.agvber.core.domain.usecase.RegisterAppUseCase
 import com.agvber.feature.signup.model.SignupSideEffect
@@ -16,30 +19,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class SignupViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val registerAppUseCase: RegisterAppUseCase
 ) : ViewModel() {
 
     private val _sideEffect: Channel<SignupSideEffect> = Channel()
     val sideEffect: Flow<SignupSideEffect> = _sideEffect.receiveAsFlow()
 
-    var uiState = mutableStateOf(SignupUiState())
+    @OptIn(SavedStateHandleSaveableApi::class)
+    var uiState by savedStateHandle.saveable { mutableStateOf(SignupUiState()) }
         private set
 
-    fun updateEmailState(email: String) = with(uiState) {
-        value = value.copy(email = email)
+    fun updateEmailState(email: String) {
+        uiState = uiState.copy(email = email)
     }
 
-    fun updateNameState(name: String) = with(uiState) {
-        value = value.copy(name = name)
+    fun updateNameState(name: String) {
+        uiState = uiState.copy(name = name)
     }
 
-    fun updatePasswordState(password: String) = with(uiState) {
-        value = value.copy(password = password)
+    fun updatePasswordState(password: String) {
+        uiState = uiState.copy(password = password)
     }
 
     fun registerService() = viewModelScope.launch {
         try {
-            with(uiState.value) {
+            with(uiState) {
                 registerAppUseCase(email = email, name = name, password = password)
                 _sideEffect.send(SignupSideEffect.SignupSuccess)
             }

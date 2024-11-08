@@ -73,7 +73,7 @@ fun SignupRoute(
                     Toast.makeText(context, "이름 형식에 오류가 있습니다.", Toast.LENGTH_SHORT).show()
                 }
                 SignupSideEffect.PasswordFormatError -> {
-                    Toast.makeText(context, "비밀번호 형식에 오류가 있습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "비밀번호는 8자리에서 12자리 사이어야 합니다.", Toast.LENGTH_SHORT).show()
                 }
                 SignupSideEffect.SignupFail -> {
                     Toast.makeText(context, "알 수 없는 에러가 발생하였습니다.", Toast.LENGTH_SHORT).show()

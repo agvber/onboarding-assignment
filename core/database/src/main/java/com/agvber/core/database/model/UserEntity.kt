@@ -1,8 +1,14 @@
 package com.agvber.core.database.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.agvber.core.database.TableName
+
+@Entity(TableName.USER)
 data class UserEntity(
-    var id: Long = 0,
-    val email: String,
-    val name: String,
-    val password: String
+    @PrimaryKey var id: Long = 0,
+    @ColumnInfo(name = "email") val email: String,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "password") val password: String
 )
